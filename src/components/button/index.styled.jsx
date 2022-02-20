@@ -9,9 +9,15 @@ export const rotate = keyframes`
 
 export const Button = styled(RBButton)`
     display: flex;
-    border-radius: ${({ theme }) => theme.sizes.card.radius}px;
+    /* border-radius: ${({ theme }) => theme.sizes.button.radius}px; */
     align-items: center;
-    
+    justify-content: center;
+    text-align: center;
+
+    ${p => p.$fullWidth
+        ? `width: 100%;`
+        : ``
+    }    
     ${p => p.$hasChildren
         ? `padding: 0.5rem 1rem;`
         : `padding: 0.5rem;`
@@ -28,6 +34,5 @@ export const Button = styled(RBButton)`
         ${p => p.$hasChildren && `
                 margin-right: 0.75rem;
             `
-    }
     }
 `

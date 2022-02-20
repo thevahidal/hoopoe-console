@@ -1,12 +1,6 @@
-import styled from 'styled-components'
 import PropTypes from 'prop-types'
 
-const StyledH2 = styled.h2`
-    margin: 0;
-    font-weight: bold;
-    line-height: 1;
-    color: ${p => p.theme.colors.heading};
-`
+import * as styles from './Heading.styled'
 
 const Heading = ({ children, variant, ...props }) => {
     const getElementByVariant = (_variant) => {
@@ -15,7 +9,7 @@ const Heading = ({ children, variant, ...props }) => {
     }
 
     return (
-        <StyledH2 as={getElementByVariant(variant)} {...props}>{children}</StyledH2>
+        <styles.Heading as={getElementByVariant(variant)} {...props}>{children}</styles.Heading>
     )
 }
 

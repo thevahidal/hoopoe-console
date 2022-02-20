@@ -9,6 +9,7 @@
     "axios": "^0.24.0",
     "better-docs": "^2.7.2",
     "bootstrap": "^5.1.3",
+    "joi": "^17.6.0",
     "jsdoc": "^3.6.10",
     "prop-types": "^15.8.1",
     "react": "^17.0.2",
@@ -18,6 +19,7 @@
     "react-router": "^6.2.1",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "react-use-setstate": "^1.0.2",
     "styled-components": "^5.3.3",
     "web-vitals": "^2.1.0"
   },

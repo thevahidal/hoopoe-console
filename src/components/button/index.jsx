@@ -15,7 +15,7 @@ import Text from '../typography/Text'
  *   </Button>
  * )
  */
-const Button = ({ iconRotating, loading, loadingText, icon, ...props }) => {
+const Button = ({ iconRotating, loading, loadingText, icon, color, fullWidth, ...props }) => {
     const theme = useTheme()
 
     return (
@@ -24,6 +24,7 @@ const Button = ({ iconRotating, loading, loadingText, icon, ...props }) => {
             $hasChildren={props.children}
             $iconRotating={iconRotating}
             disabled={props.disabled || loading}
+            $fullWidth={fullWidth}
         >
             {icon && <span className='icon'>
                 {
@@ -34,7 +35,7 @@ const Button = ({ iconRotating, loading, loadingText, icon, ...props }) => {
                 }
             </span>}
             {
-                props.children && <Text>
+                props.children && <Text color={color}>
                     {!loading ? props.children : loadingText}
                 </Text>
             }
@@ -77,6 +78,16 @@ Button.propTypes = {
      * If true, button's icon start rotating
      */
     iconRotating: PropTypes.bool,
+
+    /**
+     * Button's text color
+     */
+    color: PropTypes.string,
+
+    /**
+     * Whether button is full width
+     */
+    fullWidth: PropTypes.bool,
 }
 
 Button.defaultProps = {
@@ -86,6 +97,8 @@ Button.defaultProps = {
     disabled: false,
     icon: null,
     iconRotating: false,
+    color: '#fff',
+    fullWidth: false,
 }
 
 export default Button

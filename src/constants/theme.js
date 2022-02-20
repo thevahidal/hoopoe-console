@@ -32,7 +32,10 @@ const theme = (mode) => ({
   sizes: {
     card: {
       radius: 20,
-    }
+    },
+    button: {
+      radius: 10,
+    },
   }
 })
 

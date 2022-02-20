@@ -21,7 +21,7 @@ const Navbar = props => {
                 <RBNavbar.Toggle />
                 <RBNavbar.Collapse>
                     <Nav>
-                        <Nav.Link>Link</Nav.Link>
+                        {/* <Nav.Link>Link</Nav.Link> */}
                     </Nav>
                 </RBNavbar.Collapse>
             </Container>

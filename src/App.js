@@ -1,8 +1,9 @@
 
 import { Route, Routes } from 'react-router-dom';
 
-import ConsoleLayout from './components/layouts';
 import './App.css';
+import Console from './screens/console';
+import Auth, { Login } from './screens/auth';
 
 const routes = [
   {
@@ -15,19 +16,13 @@ const App = props => {
   return (
     <div>
       <Routes>
-        {
-          routes.map(route => {
-            const Layout = route.layout || ConsoleLayout
-
-            return (
-              <Route
-                key={route.path}
-                path={route.path}
-                element={<Layout>{route.element}</Layout>}
-              />
-            )
-          })
-        }
+        <Route path='/' element={<Console />}>
+          <Route path='' element={<div>Root</div>} />
+          <Route path='auth' element={<Auth />}>
+            <Route path='login' element={<Login />} />
+            {/* <Route path='/register' element='Register' /> */}
+          </Route>
+        </Route>
       </Routes>
     </div>
   );
