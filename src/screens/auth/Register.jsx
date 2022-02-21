@@ -5,17 +5,19 @@ import Joi from 'joi'
 
 import { Heading, Text } from "../../components/typography"
 import Button from '../../components/button'
-import { obtainTokenAPI } from "../../apis/auth"
-import { login } from "../../actions/auth"
+import { registerAPI } from "../../apis/auth"
 import { schemaValidator } from "../../utils"
+import { login } from "../../actions/auth"
 
-const Login = props => {
+const Register = props => {
     const [state, setState] = useSetState({
         username: '',
+        email: '',
         password: '',
         error: {},
         submitLoading: false,
     })
+
     const dispatch = useDispatch()
 
     const schema = Joi.object({
@@ -23,6 +25,10 @@ const Login = props => {
             .alphanum()
             .min(2)
             .max(30)
+            .required(),
+
+        email: Joi.string()
+            .email({ tlds: { allow: false } })
             .required(),
 
         password: Joi.string()
@@ -34,15 +40,16 @@ const Login = props => {
 
         const { value, error, isInvalid } = schemaValidator({
             username: state.username,
+            email: state.email,
             password: state.password,
         }, schema);
         setState({ error });
         if (isInvalid) return;
 
         setState({ submitLoading: true })
-        obtainTokenAPI(value).then(res => {
+        registerAPI(value).then(res => {
             const { access, refresh } = res.data
-            dispatch(login(access, refresh))
+            dispatch(login(access, refresh))            
             setState({ submitLoading: false })
         }).catch(err => {
             setState({ submitLoading: false })
@@ -51,7 +58,7 @@ const Login = props => {
 
     return (
         <>
-            <Heading className='mb-5'>Welcome Back!</Heading>
+            <Heading className='mb-5'>Welcome to Hoopoe!</Heading>
             <Form onSubmit={handleSubmit}>
                 <Form.Group
                     className='mb-2'
@@ -64,6 +71,20 @@ const Login = props => {
                     />
                     <Form.Control.Feedback type="invalid">
                         {state.error.username}
+                    </Form.Control.Feedback>
+                </Form.Group>
+
+                <Form.Group
+                    className='mb-2'
+                >
+                    <FormControl
+                        placeholder='Email Address'
+                        value={state.email}
+                        onChange={e => setState({ email: e.target.value })}
+                        isInvalid={state.error.email}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                        {state.error.email}
                     </Form.Control.Feedback>
                 </Form.Group>
 
@@ -83,11 +104,11 @@ const Login = props => {
                 </Form.Group>
                 <Button type='submit' className={'mb-3'} fullWidth={true} variant='dark'
                     loading={state.submitLoading}
-                >Login</Button>
+                >Register</Button>
             </Form>
-            <Text type='link' href='/auth/register'>Not a member yet? Sign up here!</Text>
+            <Text type='link' href='/auth/login'>Already a member? Sign in here!</Text>
         </>
     )
 }
 
-export default Login
+export default Register
