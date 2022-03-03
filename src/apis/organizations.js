@@ -1,5 +1,6 @@
 import fetchAPI from './'
 
+export const PAGINATION_LIMIT_SIZE = 20
 
 /**
  * @param {string} uuid - Organization uuid
@@ -17,7 +18,15 @@ export const listOrganizationsAPI = async () => {
  * returns upupas from a specific organization
  */
 export const listUpupasAPI = async (uuid, page) => {
-    return await fetchAPI.get(`/organizations/${uuid}/upupa/`)
+    let url = `/organizations/${uuid}/upupa/`
+
+    if (page) {
+        const offset = (page - 1) * PAGINATION_LIMIT_SIZE
+
+        url += `?limit=${PAGINATION_LIMIT_SIZE}&offset=${offset}`
+    }
+
+    return await fetchAPI.get(url)
 }
 
 /**

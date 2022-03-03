@@ -84,7 +84,6 @@ const Navbar = props => {
     }
 
     const handleSelectOrganization = (organization) => {
-        console.log(organization)
         setState({ activeOrganization: organization })
         dispatch({ type: "SET_ACTIVE_ORGANIZATION", payload: organization })
     }
@@ -100,7 +99,7 @@ const Navbar = props => {
                             src="/logo192.png"
                             width="30"
                             height="30"
-                        />{' '}
+                        />
                         <Heading variant={6} className='mx-2'>Hoopoe</Heading>
                     </RBNavbar.Brand>
                     {isAuthenticated && <>

@@ -46,13 +46,13 @@ export const ThemeContext = React.createContext({});
 export const GlobalStyle = createGlobalStyle`
   @media (min-width: 992px) {
     .container, .container-lg, .container-md, .container-sm {
-      max-width: 700px;
+      max-width: 800px;
     }
   }
 
   @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
-      max-width: 800px;
+      max-width: 900px;
     }
   }
 
