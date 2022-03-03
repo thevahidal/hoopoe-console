@@ -13,6 +13,19 @@ export const Button = styled(RBButton)`
     align-items: center;
     justify-content: center;
     text-align: center;
+    
+    &:focus {
+        outline: 0 !important;
+        box-shadow: none !important;
+    }
+
+    &:hover {
+        opacity: 0.8 !important;
+    }
+
+    p {
+        transition: none;
+    }
 
     ${p => p.$fullWidth
         ? `width: 100%;`

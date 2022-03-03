@@ -15,6 +15,21 @@ const user = (state = USER_INITIAL_STATE, action) => {
     }
 }
 
+const organizations = (state = {
+    active: null,
+    list: [],
+}, action) => {
+    switch (action.type) {
+        case 'SET_ACTIVE_ORGANIZATION':
+            return { ...state, active: action.payload };
+        case 'SET_ORGANIZATIONS':
+            return { ...state, list: action.payload };
+        default:
+            return state
+    }
+}
+
 export default combineReducers({
+    organizations,
     user,
 })

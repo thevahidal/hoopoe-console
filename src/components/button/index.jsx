@@ -1,3 +1,4 @@
+import { forwardRef } from "react"
 import { useTheme } from "styled-components"
 import PropTypes from 'prop-types'
 
@@ -15,9 +16,9 @@ import Text from '../typography/Text'
  *   </Button>
  * )
  */
-const Button = ({ iconRotating, loading, loadingText, icon, color, fullWidth, ...props }) => {
+const Button = ({ iconRotating, loading, loadingText, icon, color, fullWidth, ...props }, ref) => {
     const theme = useTheme()
-
+    
     return (
         <styles.Button
             {...props}
@@ -25,6 +26,7 @@ const Button = ({ iconRotating, loading, loadingText, icon, color, fullWidth, ..
             $iconRotating={iconRotating}
             disabled={props.disabled || loading}
             $fullWidth={fullWidth}
+            ref={ref}
         >
             {icon && <span className='icon'>
                 {
@@ -90,15 +92,4 @@ Button.propTypes = {
     fullWidth: PropTypes.bool,
 }
 
-Button.defaultProps = {
-    children: 'Button',
-    loading: false,
-    loadingText: 'Loading...',
-    disabled: false,
-    icon: null,
-    iconRotating: false,
-    color: '#fff',
-    fullWidth: false,
-}
-
-export default Button
+export default forwardRef(Button);

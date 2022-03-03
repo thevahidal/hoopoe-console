@@ -3,6 +3,7 @@ import { createGlobalStyle } from 'styled-components'
 
 const light = {
   navbar: "#fff",
+  white: "#fff",
   background: "#f2f2f2",
   green: "#59bb65",
   red: "#e64a33",
@@ -16,6 +17,7 @@ const light = {
 
 const dark = {
   navbar: "#111",
+  white: "#111",
   background: "#222",
   green: "#59bb65",
   red: "#e64a33",

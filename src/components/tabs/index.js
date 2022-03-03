@@ -1,38 +1,65 @@
+import { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import useSetState from 'react-use-setstate';
 import { useTheme } from 'styled-components';
 
 import * as styles from './index.styled'
 
+const ACTIVE_BAR_PADDING = 20;
+
 const Tabs = ({ items, defaultActive, ...props }) => {
     const [state, setState] = useSetState({
         active: defaultActive,
+        activeBarLeft: 0,
+        activeBarWidth: 0,
     })
 
+    const buttons = useRef([]);
     const theme = useTheme();
+
+    useEffect(() => {
+        setState({
+            activeBarLeft: buttons.current[state.active].offsetLeft,
+            activeBarWidth: buttons.current[state.active].clientWidth,
+        })
+    }, [])
 
     const handleClick = (id, onClick) => {
         setState({
             active: id,
         })
-        onClick()
+        if (onClick) {
+            onClick();
+        }
+        setState({
+            activeBarLeft: buttons.current[id].offsetLeft,
+            activeBarWidth: buttons.current[id].clientWidth,
+        })
     }
+
 
     return (
         <styles.Wrapper>
-            {
-                items.map((item, index) => (
-                    <styles.Button
-                        key={index}
-                        onClick={() => handleClick(index, item.onClick)}
-                        active={state.active === index}
-                        color={theme.colors.text}
-                        className='pt-2 pb-3'
-                    >
-                        {item.label}
-                    </styles.Button>
-                ))
-            }
+            <styles.TabsWrapper>
+                {
+                    items.map((item, index) => (
+                        <styles.Button
+                            key={index}
+                            onClick={() => handleClick(index, item.onClick)}
+                            active={state.active === index}
+                            color={theme.colors.text}
+                            className='pt-3 pb-3'
+                            ref={el => buttons.current[index] = el}
+                        >
+                            {item.label}
+                        </styles.Button>
+                    ))
+                }
+            </styles.TabsWrapper>
+            <styles.ActiveBar style={{
+                left: state.activeBarLeft + ACTIVE_BAR_PADDING,
+                width: state.activeBarWidth - ACTIVE_BAR_PADDING * 2
+            }} />
         </styles.Wrapper>
     )
 }

@@ -2,6 +2,7 @@ import { Form, FormControl } from "react-bootstrap"
 import useSetState from 'react-use-setstate'
 import { useDispatch } from "react-redux"
 import Joi from 'joi'
+import { useTheme } from "styled-components"
 
 import { Heading, Text } from "../../components/typography"
 import Button from '../../components/button'
@@ -16,7 +17,9 @@ const Login = props => {
         error: {},
         submitLoading: false,
     })
+
     const dispatch = useDispatch()
+    const theme = useTheme()
 
     const schema = Joi.object({
         username: Joi.string()
@@ -81,7 +84,8 @@ const Login = props => {
                         {state.error.password}
                     </Form.Control.Feedback>
                 </Form.Group>
-                <Button type='submit' className={'mb-3'} fullWidth={true} variant='dark'
+                <Button type='submit' className={'mb-3'} fullWidth={true} variant='dark' color={theme.colors.white}
+                    loadingText={'Logging in...'}
                     loading={state.submitLoading}
                 >Login</Button>
             </Form>

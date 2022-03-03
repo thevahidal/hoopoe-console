@@ -1,3 +1,4 @@
+import { BASE_URL } from "../constants/api";
 
 /**
  * 
@@ -28,7 +29,11 @@ export const schemaValidator = (obj, schema) => {
  * @param {string} token Token to be parsed
  * @returns the decoded token
  */
-export const parseJWT = (token) => {
+export const decodeJWT = (token) => {
+    if (!token) {
+        return null;
+    }
+
     const base64Url = token.split('.')[1];
     const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
     const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
@@ -36,4 +41,19 @@ export const parseJWT = (token) => {
     }).join(''));
 
     return JSON.parse(jsonPayload);
+}
+
+
+/**
+ * 
+ * @param {string} src Image url
+ * @returns full image url with the scheme (http/https)
+ */
+export const getImageURL = (src) => {
+    if (!src) return src
+    if (src.startsWith('http')) {
+        return src;
+    }
+
+    return `${BASE_URL}${src}`;
 }

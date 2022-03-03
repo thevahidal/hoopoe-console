@@ -1,3 +1,6 @@
+// @ts-check
+
+import { decodeJWT } from "../utils";
 
 /**
  * Dispatches the action to log in the user with the given tokens
@@ -10,6 +13,13 @@ export const login = (access, refresh) => (dispatch) => {
         payload: {
             access,
             refresh,
+            info: decodeJWT(access).user,
         },
+    });
+}
+
+export const logout = () => (dispatch) => {
+    dispatch({
+        type: 'LOGOUT',
     });
 }

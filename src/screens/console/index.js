@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types'
 import { Container } from 'react-bootstrap';
-import { Outlet, Link } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
 import Navbar from "../../components/layouts/Navbar";
 import Tabs from '../../components/tabs';
 import Recipients from './Recipients'
+import Upupas from './Upupas'
 import * as styles from './index.styled'
 
 const Console = props => {
+    const navigate = useNavigate();
 
     return (
         <div>
@@ -16,15 +18,15 @@ const Console = props => {
                 <Container>
                     <Tabs items={[
                         {
-                            label: 'Recipients',
+                            label: 'Upupas',
                             onClick: () => {
-                                console.log('Recipients')
+                                navigate('upupas');
                             }
                         },
                         {
-                            label: 'Messages',
+                            label: 'Recipients',
                             onClick: () => {
-                                console.log('Messages')
+                                console.log('Recipients')
                             }
                         },
                         {
@@ -55,4 +57,5 @@ export default Console;
 
 export {
     Recipients,
+    Upupas,
 }

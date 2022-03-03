@@ -43,7 +43,9 @@ fetchAPI.interceptors.response.use(response => {
   if (status === 401) {
     if (!isRefreshing) {
       isRefreshing = true;
-      refreshTokenAPI()
+      refreshTokenAPI({
+        refresh: store.getState().user.refresh
+      })
         .then(res => {
           const { access, refresh } = res.data;
           store.dispatch(login(access, refresh));

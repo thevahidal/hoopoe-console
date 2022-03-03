@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { Route, Routes as RRRoutes, Outlet, Navigate } from 'react-router-dom';
-
-import Console from './screens/console';
-import Auth, { Login, Register } from './screens/auth';
 import { useSelector } from 'react-redux';
+
+import Console, { Upupas } from './screens/console';
+import Auth, { Login, Register } from './screens/auth';
 
 
 const ConditionalEscapeOutlet = ({ condition, escapeTo }) => {
@@ -35,16 +35,18 @@ const Routes = props => {
     return (
         <div>
             <RRRoutes>
-                <Route path='/' element={<Console />}>
-                    <Route path="" element={<ConditionalEscapeOutlet condition={!isAuthenticated} escapeTo="/auth/login" />}>
-                        <Route element={<div>Root</div>} />
+                <Route path="" element={<ConditionalEscapeOutlet condition={!isAuthenticated} escapeTo="/auth/login" />}>
+                    <Route path="" element={<Console />}>
+                        <Route index element={<Upupas />} />
+                        <Route path='upupas' element={<Upupas />} />
                     </Route>
+                </Route>
 
-                    <Route path="" element={<ConditionalEscapeOutlet condition={isAuthenticated} escapeTo="/" />}>
-                        <Route path='auth' element={<Auth />}>
-                            <Route path='login' element={<Login />} />
-                            <Route path='register' element={<Register />} />
-                        </Route>
+                <Route path="" element={<ConditionalEscapeOutlet condition={isAuthenticated} escapeTo="/" />}>
+                    <Route path='auth' element={<Auth />}>
+                        <Route index element={<Login />} />
+                        <Route path='login' element={<Login />} />
+                        <Route path='register' element={<Register />} />
                     </Route>
                 </Route>
             </RRRoutes>

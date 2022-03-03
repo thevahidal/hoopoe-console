@@ -2,6 +2,7 @@ import { Form, FormControl } from "react-bootstrap"
 import useSetState from 'react-use-setstate'
 import { useDispatch } from "react-redux"
 import Joi from 'joi'
+import { useTheme } from "styled-components"
 
 import { Heading, Text } from "../../components/typography"
 import Button from '../../components/button'
@@ -19,6 +20,7 @@ const Register = props => {
     })
 
     const dispatch = useDispatch()
+    const theme = useTheme()
 
     const schema = Joi.object({
         username: Joi.string()
@@ -48,8 +50,9 @@ const Register = props => {
 
         setState({ submitLoading: true })
         registerAPI(value).then(res => {
-            const { access, refresh } = res.data
-            dispatch(login(access, refresh))            
+            const { data: { access, refresh } } = res.data
+
+            dispatch(login(access, refresh))
             setState({ submitLoading: false })
         }).catch(err => {
             setState({ submitLoading: false })
@@ -103,6 +106,8 @@ const Register = props => {
                     </Form.Control.Feedback>
                 </Form.Group>
                 <Button type='submit' className={'mb-3'} fullWidth={true} variant='dark'
+                    color={theme.colors.white}
+                    loadingText={'Registering...'}
                     loading={state.submitLoading}
                 >Register</Button>
             </Form>
