@@ -1,10 +1,10 @@
 import { useEffect } from "react"
 import useSetState from "react-use-setstate"
 import { useSelector } from "react-redux"
+import { Card, Col, Row, Pagination } from "react-bootstrap"
 
 import { listUpupasAPI, PAGINATION_LIMIT_SIZE } from "../../apis/organizations"
-import { Card, Col, Row, Pagination } from "react-bootstrap"
-import Upupa from "../../components/upupas"
+import UpupaCard from "../../components/upupas"
 
 
 const Upupas = props => {
@@ -48,7 +48,7 @@ const Upupas = props => {
                 <div className="mb-4">
                     {
                         state.upupas.map(upupa => (
-                            <Upupa key={upupa.uuid} upupa={upupa} />
+                            <UpupaCard key={upupa.uuid} upupa={upupa} />
                         ))
                     }
                 </div>

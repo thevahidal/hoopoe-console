@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { Container } from 'react-bootstrap';
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 
 import Navbar from "../../components/layouts/Navbar";
 import Tabs from '../../components/tabs';
@@ -10,32 +10,40 @@ import * as styles from './index.styled'
 
 const Console = props => {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const tabs = [
+        {
+            name: "upupas",
+            label: 'Upupas',
+            onClick: () => {
+                navigate('upupas');
+            }
+        },
+        {
+            name: "recipients",
+            label: 'Recipients',
+            onClick: () => {
+                navigate('recipients');
+            }
+        },
+        {
+            name: "settings",
+            label: 'Settings',
+            onClick: () => {
+                console.log('Settings')
+            }
+        },
+    ]
 
     return (
         <div>
             <Navbar />
             <styles.TabsWrapper>
                 <Container>
-                    <Tabs items={[
-                        {
-                            label: 'Upupas',
-                            onClick: () => {
-                                navigate('upupas');
-                            }
-                        },
-                        {
-                            label: 'Recipients',
-                            onClick: () => {
-                                console.log('Recipients')
-                            }
-                        },
-                        {
-                            label: 'Settings',
-                            onClick: () => {
-                                console.log('Settings')
-                            }
-                        },
-                    ]} />
+                    <Tabs
+                        defaultActive={tabs.findIndex(tab => tab.name === location.pathname.split('/')[1])}
+                        items={tabs} />
                 </Container>
             </styles.TabsWrapper>
             <Container className='py-4'>

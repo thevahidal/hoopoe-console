@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { Route, Routes as RRRoutes, Outlet, Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import Console, { Upupas } from './screens/console';
+import Console, { Recipients, Upupas } from './screens/console';
 import Auth, { Login, Register } from './screens/auth';
 
 
@@ -39,6 +39,7 @@ const Routes = props => {
                     <Route path="" element={<Console />}>
                         <Route index element={<Upupas />} />
                         <Route path='upupas' element={<Upupas />} />
+                        <Route path='recipients' element={<Recipients />} />
                     </Route>
                 </Route>
 

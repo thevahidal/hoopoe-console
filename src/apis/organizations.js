@@ -37,3 +37,30 @@ export const listUpupasAPI = async (uuid, page) => {
 export const retrieveUpupaAPI = async (uuid) => {
     return await fetchAPI.get(`/upupa/${uuid}/`)
 }
+
+/**
+ * @param {string} uuid - Organization uuid
+ * 
+ * returns a list of all recipients of an organization
+ */
+export const listRecipientsAPI = async (uuid) => {
+    return await fetchAPI.get(`/organizations/${uuid}/recipients/`)
+}
+
+/**
+ * @param {string} uuid - Organization uuid
+ * 
+ * creates a recipient for an organization
+ */
+export const createRecipientAPI = async (uuid, data) => {
+    return await fetchAPI.post(`/organizations/${uuid}/recipients/`, data)
+}
+
+/**
+ * @param {string} uuid - Organization uuid
+ * 
+ * updates a recipient
+ */
+export const updateRecipientAPI = async (uuid, data) => {
+    return await fetchAPI.patch(`/organizations/${uuid}/recipients/`, data)
+}

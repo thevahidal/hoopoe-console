@@ -6,33 +6,32 @@ import * as styles from "./index.styled"
 
 dayjs.extend(relativeTime)
 
-const UpupaCard = ({ upupa, ...props }) => {
+const RecipientCard = ({ recipient, ...props }) => {
 
     const handleGetDate = (date) => {
         if (dayjs(date).diff(dayjs(), 'day') <= 1) {
             return dayjs(date).fromNow()
         } else {
-            return dayjs(date).format('MMM D, YYYY h:mm A')
+            return "at " + dayjs(date).format('MMM D, YYYY h:mm A')
         }
     }
 
     return (
         <Card className="mb-2">
+            <Card.Img src={recipient.image_thumbnail} />
             <Card.Body>
                 <Card.Title>
-                    {upupa.message}
+                    {recipient.name}
                 </Card.Title>
-                <styles.Extra as="div">
-                    <pre>
-                        {JSON.stringify(upupa.extra, null, 2)}
-                    </pre>
-                </styles.Extra>
+                <Card.Subtitle>
+                    @{recipient.username}
+                </Card.Subtitle>
             </Card.Body>
             <Card.Footer className="d-flex justify-content-end">
-                {handleGetDate(upupa.created_at)}
+                joined {handleGetDate(recipient.created_at)}
             </Card.Footer>
         </Card>
     )
 }
 
-export default UpupaCard
+export default RecipientCard
