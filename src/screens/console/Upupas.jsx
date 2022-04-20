@@ -20,14 +20,14 @@ const Upupas = props => {
     useEffect(() => {
         if (!activeOrganization) return
         handleGetUpupasData()
-    }, [activeOrganization.uuid, state.page])
+    }, [activeOrganization?.uuid, state.page])
 
     const handleGetUpupasData = async () => {
         setState({
             loading: true,
         })
         try {
-            const { data: { results, count } } = await listUpupasAPI(activeOrganization.uuid, state.page)
+            const { data: { results, count } } = await listUpupasAPI(activeOrganization?.uuid, state.page)
             setState({
                 upupas: results,
                 loading: false,

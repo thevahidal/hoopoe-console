@@ -68,6 +68,7 @@ const Navbar = props => {
     const user = useSelector(state => state.user.info)
 
     useEffect(() => {
+
         if (isAuthenticated) {
             listOrganizationsAPI().then(res => {
                 const { results } = res.data

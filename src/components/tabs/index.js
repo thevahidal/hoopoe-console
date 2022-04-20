@@ -19,8 +19,8 @@ const Tabs = ({ items, defaultActive, ...props }) => {
 
     useEffect(() => {
         setState({
-            activeBarLeft: buttons.current[state.active].offsetLeft,
-            activeBarWidth: buttons.current[state.active].clientWidth,
+            activeBarLeft: buttons.current[state.active]?.offsetLeft,
+            activeBarWidth: buttons.current[state.active]?.clientWidth,
         })
     }, [])
 
