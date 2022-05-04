@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { login } from '../actions/auth';
+import { login, logout } from '../actions/auth';
 
 import { API_BASE_URL } from '../constants/api';
+import authURLs from '../constants/api/auth/urls';
 import { store } from '../store';
+import { getAPICompleteURL } from '../utils/api';
 import { refreshTokenAPI } from './auth';
 
 const fetchAPI = axios.create({
@@ -24,7 +26,7 @@ fetchAPI.interceptors.request.use(
     }
 
     const version = config.version || 1;
-    config.url = `${API_BASE_URL}/v${version}${config.url}`;
+    config.url = getAPICompleteURL(config.url, version);
 
     return config;
   },
@@ -40,7 +42,9 @@ fetchAPI.interceptors.response.use(response => {
   const { config, response: { status } } = error;
   const originalRequest = config;
 
-  if (status === 401) {
+  const isObtainTokenAPI = config.url === getAPICompleteURL(authURLs.obtainTokenAPI, config.version)
+
+  if (status === 401 && !isObtainTokenAPI) {
     if (!isRefreshing) {
       isRefreshing = true;
       refreshTokenAPI({
@@ -51,6 +55,10 @@ fetchAPI.interceptors.response.use(response => {
           store.dispatch(login(access, refresh));
           isRefreshing = false;
           onRefreshed(access);
+        })
+        .catch(err => {
+          store.dispatch(logout());
+          isRefreshing = false;
         });
     }
 

@@ -1,4 +1,5 @@
 import fetchAPI from './'
+import urls from '../constants/api/auth/urls'
 
 /**
  * @api {post} /auth/login Login
@@ -14,8 +15,9 @@ import fetchAPI from './'
  * @param   {string} data.username - User's username
  * @param   {string} data.password - User's password
  */
-export const obtainTokenAPI = async (data) => {
-    return await fetchAPI.post('/auth/token/obtain/', data, { version: 1 })
+export const obtainTokenAPI = (data) => {
+    console.log(data)
+    return fetchAPI.post(urls.obtainTokenAPI, data, { version: 1 })
 }
 
 /**
@@ -30,8 +32,8 @@ export const obtainTokenAPI = async (data) => {
  * @param   {Object} data - the data to send to the api
  * @param   {string} data.refresh - User's refresh token
  */
-export const refreshTokenAPI = async (data) => {
-    return await fetchAPI.post('/auth/token/refresh/', data, { version: 1 })
+export const refreshTokenAPI = (data) => {
+    return fetchAPI.post(urls.refreshTokenAPI, data, { version: 1 })
 }
 
 /**
@@ -50,6 +52,6 @@ export const refreshTokenAPI = async (data) => {
  * @param   {string} data.email - User's email address
  * @param   {string} data.password - User's password
  */
-export const registerAPI = async (data) => {
-    return await fetchAPI.post('/auth/register/', data, { version: 1 })
+export const registerAPI = (data) => {
+    return fetchAPI.post(urls.registerAPI, data, { version: 1 })
 }

@@ -1,3 +1,4 @@
+import urls from '../constants/api/organizations/urls'
 import fetchAPI from './'
 
 export const PAGINATION_LIMIT_SIZE = 20
@@ -7,8 +8,8 @@ export const PAGINATION_LIMIT_SIZE = 20
  * 
  * returns a list of all organizations
  */
-export const listOrganizationsAPI = async () => {
-    return await fetchAPI.get('/organizations/')
+export const listOrganizationsAPI = () => {
+    return fetchAPI.get(urls.listOrganizationsAPI)
 }
 
 /**
@@ -17,8 +18,8 @@ export const listOrganizationsAPI = async () => {
  * 
  * returns upupas from a specific organization
  */
-export const listUpupasAPI = async (uuid, page) => {
-    let url = `/organizations/${uuid}/upupa/`
+export const listUpupasAPI = (uuid, page) => {
+    let url = urls.listUpupasAPI(uuid)
 
     if (page) {
         const offset = (page - 1) * PAGINATION_LIMIT_SIZE
@@ -26,7 +27,7 @@ export const listUpupasAPI = async (uuid, page) => {
         url += `?limit=${PAGINATION_LIMIT_SIZE}&offset=${offset}`
     }
 
-    return await fetchAPI.get(url)
+    return fetchAPI.get(url)
 }
 
 /**
@@ -34,8 +35,8 @@ export const listUpupasAPI = async (uuid, page) => {
  * 
  * returns upupa details
  */
-export const retrieveUpupaAPI = async (uuid) => {
-    return await fetchAPI.get(`/upupa/${uuid}/`)
+export const retrieveUpupaAPI = (uuid) => {
+    return fetchAPI.get(urls.retrieveUpupaAPI(uuid))
 }
 
 /**
@@ -43,8 +44,8 @@ export const retrieveUpupaAPI = async (uuid) => {
  * 
  * returns a list of all recipients of an organization
  */
-export const listRecipientsAPI = async (uuid) => {
-    return await fetchAPI.get(`/organizations/${uuid}/recipients/`)
+export const listRecipientsAPI = (uuid) => {
+    return fetchAPI.get(urls.listRecipientsAPI(uuid))
 }
 
 /**
@@ -52,8 +53,8 @@ export const listRecipientsAPI = async (uuid) => {
  * 
  * creates a recipient for an organization
  */
-export const createRecipientAPI = async (uuid, data) => {
-    return await fetchAPI.post(`/organizations/${uuid}/recipients/`, data)
+export const createRecipientAPI = (uuid, data) => {
+    return fetchAPI.post(urls.createRecipientAPI(uuid), data)
 }
 
 /**
@@ -61,6 +62,6 @@ export const createRecipientAPI = async (uuid, data) => {
  * 
  * updates a recipient
  */
-export const updateRecipientAPI = async (uuid, data) => {
-    return await fetchAPI.patch(`/organizations/${uuid}/recipients/`, data)
+export const updateRecipientAPI = (uuid, data) => {
+    return fetchAPI.patch(urls.updateRecipientAPI(uuid), data)
 }
